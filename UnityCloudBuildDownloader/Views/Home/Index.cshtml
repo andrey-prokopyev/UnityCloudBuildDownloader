@@ -3,19 +3,29 @@
 }
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="android-tab" data-toggle="tab" href="#android" role="tab">Android</a>
+    <li class="nav-item active">
+        <a class="nav-link active" id="android-tab" data-toggle="tab" href="#android" role="tab" aria-expanded="true">Android</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" id="ios-tab" data-toggle="tab" href="#ios" role="tab">iOS</a>
     </li>
 </ul>
 <div ng-app="buildsApp" class="tab-content" id="buildsContent">
-    <div ng-repeat="platform in ['android', 'ios']"  id="{{platform}}" class="tab-pane fade" role="tabpanel">
+    <div ng-repeat="platform in ['android', 'ios']"  id="{{platform}}" class="tab-pane fade" role="tabpanel" ng-class="platform == 'android' ? 'active in' : ''">
         <div ng-controller="buildsCtrl" class="container">
             <div ng-repeat='build in builds'>
                 <div>
-                    <p><strong>{{ build.version }}</strong> status {{ build.status }}. <a href="{{build.packageUrl}}">Download</a> <a href="#" ng-click="showChangeset = !showChangeset">Изменения</a></p>
+                    <p><strong>{{ build.version }}</strong> 
+                        <span ng-switch="build.status">
+                            <span ng-switch-when="success" class="glyphicon glyphicon-ok text-success" title="{{ build.status }}"></span>
+                            <span ng-switch-when="failure" class="glyphicon glyphicon-remove text-danger" title="{{ build.status }}"></span>
+                            <span ng-switch-when="queued" class="glyphicon glyphicon glyphicon-time text-info" title="{{ build.status }}"></span>
+                            <span ng-switch-when="started" class="glyphicon glyphicon-play-circle text-warning" title="{{ build.status }}"></span>
+                            <span ng-switch-default class="glyphicon glyphicon-question-sign" title="{{ build.status }}"></span>
+                        </span>
+                        <a href="{{build.packageUrl}}" ng-if="build.packageUrl"><span class="glyphicon glyphicon-cloud-download"></span></a> 
+                        <a href="#" ng-click="showChangeset = !showChangeset"><span class="glyphicon glyphicon-list"></span></a>
+                        </p>
                     <table class="table table-striped" ng-show="showChangeset">
                         <thead>
                         <tr>
@@ -25,9 +35,9 @@
                         </tr>
                         </thead>
                         <tr ng-repeat="change in build.changes">
+                            <td class="col-md-3">{{change.timestamp}}</td>
                             <td class="col-md-3">{{change.author}}</td>
                             <td class="col-md-6">{{change.message}}</td>
-                            <td class="col-md-3">{{change.timestamp}}</td>
                         </tr>
                     </table>
                 </div>
