@@ -1,3 +1,5 @@
 /.vs
 /UnityCloudBuildDownloader/bin
 /UnityCloudBuildDownloader/obj
+/obj
+/bin

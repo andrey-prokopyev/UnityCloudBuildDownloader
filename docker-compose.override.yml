@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  unitycloudbuilddownloader:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+
+      - ASPNETCORE_HTTPS_PORT=80
+    ports:
+      - "60360:80"
+      - "44310:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
