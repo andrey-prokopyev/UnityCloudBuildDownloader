@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RestSharp;
@@ -48,7 +49,7 @@ namespace UnityCloudBuildDownloader.Core
             {
                 Author = change.Author?.FullName,
                 Message = change.Message,
-                Timestamp = change.Timestamp
+                Timestamp = change.Timestamp.ToLocalTime()
             };
         }
 
