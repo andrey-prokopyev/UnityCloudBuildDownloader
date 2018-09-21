@@ -28,11 +28,11 @@
                         </p>
                     <table class="table table-striped" ng-show="showChangeset">
                         <thead>
-                        <tr>
-                            <th scope="col" class="col-md-3">Автор</th>
-                            <th scope="col" class="col-md-6">Сообщение</th>
-                            <th scope="col" class="col-md-3">Дата</th>
-                        </tr>
+                            <tr>
+                                <th scope="col" class="col-md-3">Дата</th>
+                                <th scope="col" class="col-md-3">Автор</th>
+                                <th scope="col" class="col-md-6">Сообщение</th>
+                            </tr>
                         </thead>
                         <tr ng-repeat="change in build.changes">
                             <td class="col-md-3">{{change.timestamp}}</td>
